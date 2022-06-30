@@ -1,0 +1,108 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+[application]
+
+config/name="Space Roks"
+run/main_scene="res://main/Main.tscn"
+boot_splash/image="res://assets/player_ship.png"
+boot_splash/fullsize=false
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
+config/icon="res://assets/player_ship.png"
+
+[autoload]
+
+Global="*res://main/Global.gd"
+YandexSdk="*res://main/YandexSDK.gd"
+
+[debug]
+
+gdscript/warnings/enable=false
+gdscript/warnings/exclude_addons=false
+gdscript/warnings/unassigned_variable=false
+gdscript/warnings/unassigned_variable_op_assign=false
+gdscript/warnings/unused_variable=false
+gdscript/warnings/shadowed_variable=false
+gdscript/warnings/unused_argument=false
+gdscript/warnings/unreachable_code=false
+gdscript/warnings/standalone_expression=false
+gdscript/warnings/void_assignment=false
+gdscript/warnings/narrowing_conversion=false
+gdscript/warnings/function_may_yield=false
+gdscript/warnings/variable_conflicts_function=false
+gdscript/warnings/function_conflicts_variable=false
+gdscript/warnings/function_conflicts_constant=false
+gdscript/warnings/incompatible_ternary=false
+gdscript/warnings/unused_signal=false
+gdscript/warnings/return_value_discarded=false
+gdscript/warnings/property_used_as_function=false
+gdscript/warnings/constant_used_as_function=false
+gdscript/warnings/function_used_as_property=false
+gdscript/warnings/integer_division=false
+gdscript/warnings/deprecated_keyword=false
+gdscript/warnings/standalone_ternary=false
+
+[display]
+
+window/dpi/allow_hidpi=true
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
+[input]
+
+pause={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":80,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+rotate_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+rotate_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+thrust={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+shoot={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+f5={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777248,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[physics]
+
+2d/default_gravity=0
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+2d/snapping/use_gpu_pixel_snap=true
+vram_compression/import_etc=true
+environment/default_environment="res://default_env.tres"
+quality/2d/use_pixel_snap=true

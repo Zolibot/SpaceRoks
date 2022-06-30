@@ -1,0 +1,108 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://main/Main.gd" type="Script" id=1]
+[ext_resource path="res://rock/Rock.tscn" type="PackedScene" id=2]
+[ext_resource path="res://enemy/Enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/Starfield 7 - 512x512.png" type="Texture" id=4]
+[ext_resource path="res://player/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/HUD.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/sounds/zap2a.ogg" type="AudioStream" id=7]
+[ext_resource path="res://assets/sounds/synthetic_thunder_short.wav" type="AudioStream" id=8]
+[ext_resource path="res://assets/sounds/Funky-Gameplay_Looping.ogg" type="AudioStream" id=9]
+[ext_resource path="res://assets/osb_left.png" type="Texture" id=10]
+[ext_resource path="res://assets/osb_right.png" type="Texture" id=11]
+[ext_resource path="res://assets/osb_jump.png" type="Texture" id=12]
+[ext_resource path="res://assets/osb_fire.png" type="Texture" id=13]
+[ext_resource path="res://main/Global.gd" type="Script" id=15]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, -88, -72, 0, 0, 0, 0, 936, -72, 0, 0, 0, 0, 936, 528, 0, 0, 0, 0, -88, 528, 0, 0, 0, 0, -88, -72 )
+}
+
+[node name="Main" type="Node2D"]
+pause_mode = 2
+script = ExtResource( 1 )
+Rock = ExtResource( 2 )
+Enemy = ExtResource( 3 )
+
+[node name="Background" type="TextureRect" parent="."]
+pause_mode = 1
+margin_right = 769.0
+margin_bottom = 512.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 4 )
+stretch_mode = 2
+
+[node name="Rocks" type="Node" parent="."]
+pause_mode = 1
+
+[node name="Player" parent="." instance=ExtResource( 5 )]
+pause_mode = 1
+position = Vector2( 512.121, 200 )
+linear_damp = 1.0
+angular_damp = 5.0
+
+[node name="RockPath" type="Path2D" parent="."]
+pause_mode = 1
+position = Vector2( 88, 72 )
+curve = SubResource( 1 )
+
+[node name="RockSpawn" type="PathFollow2D" parent="RockPath"]
+position = Vector2( -88, -72 )
+
+[node name="HUD" parent="." instance=ExtResource( 6 )]
+pause_mode = 1
+
+[node name="EnemyTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="LevelupSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+script = ExtResource( 15 )
+
+[node name="ExplodeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
+[node name="Left" type="TouchScreenButton" parent="."]
+position = Vector2( 48, 480 )
+scale = Vector2( 1.5, 1.5 )
+z_index = 100
+normal = ExtResource( 10 )
+action = "rotate_left"
+visibility_mode = 1
+
+[node name="Right" type="TouchScreenButton" parent="."]
+position = Vector2( 184, 480 )
+scale = Vector2( 1.5, 1.5 )
+z_index = 100
+normal = ExtResource( 11 )
+action = "rotate_right"
+visibility_mode = 1
+
+[node name="Thrust" type="TouchScreenButton" parent="."]
+position = Vector2( 896, 480 )
+scale = Vector2( 1.5, 1.5 )
+z_index = 100
+normal = ExtResource( 12 )
+action = "thrust"
+visibility_mode = 1
+
+[node name="Shoot" type="TouchScreenButton" parent="."]
+position = Vector2( 760, 480 )
+scale = Vector2( 1.5, 1.5 )
+z_index = 100
+normal = ExtResource( 13 )
+action = "shoot"
+visibility_mode = 1
+
+[connection signal="dead" from="Player" to="." method="game_over"]
+[connection signal="lives_changed" from="Player" to="HUD" method="update_lives"]
+[connection signal="shield_chenged" from="Player" to="HUD" method="update_shield"]
+[connection signal="shoot" from="Player" to="." method="_on_Player_shoot"]
+[connection signal="star_game" from="HUD" to="." method="new_game"]
+[connection signal="timeout" from="EnemyTimer" to="." method="_on_EnemyTimer_timeout"]
