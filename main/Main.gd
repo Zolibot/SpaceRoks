@@ -4,8 +4,6 @@ export (PackedScene) var Rock
 export (PackedScene) var Enemy
 
 var level = 0
-var score = 0
-var playing = false
 var _dir = Vector2(0,0)
 var screensize = Vector2()
 
@@ -16,20 +14,28 @@ func _ready():
 	$Background.set_size(screensize)
 	$Player.screensize = screensize
 	
-	YandexSdk.connect("show_full_screen",self,"_on_Pause_pressed")
-	YandexSdk.connect("close_full_screen",self,"_off_Pause")
+	Global.connect("set_game_pause",self,"_off_Pause")
+	Global.connect("close_full_screen",self,"_off_Pause")
 	
 	
 	for  i in range(9):
 		spawn_rock(3)
 
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
+		Global.tab_Open()
+		
+	if what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
+		Global.tab_Close()
+
+
 func _process(delta):
-	if playing and $Rocks.get_child_count() == 0:
+	if Global.playing and $Rocks.get_child_count() == 0:
 		new_level()
 
 func _input(event):
 	if event.is_action_pressed('pause'):
-		if not playing:
+		if not Global.playing:
 			return
 		get_tree().paused = not get_tree().paused
 		if get_tree().paused:
@@ -40,8 +46,9 @@ func _input(event):
 			$HUD/MessagePause.hide()
 
 func game_over():
-	playing = false
+	Global.playing = false
 	get_node("Player/CollisionShape2D").call_deferred("set", "disabled", true)
+	$Player.set_position(Vector2(512,200))
 	$HUD.game_over()
 	$Music.stop()
 	$EnemyTimer.stop()
@@ -51,11 +58,13 @@ func game_over():
 		if x.is_in_group('enemies'):
 			x.queue_free()
 			
-	show_ads()
+	Global._show_interstitial()
 
 func show_ads()->void:
 	if OS.has_feature("JavaScript"):
-		YandexSdk.ShowFullScreenAds()
+#		if $Timer.is_stopped():
+		Global._show_interstitial()
+#			$Timer.start(61)
 
 
 func new_game():
@@ -63,12 +72,13 @@ func new_game():
 	for rock in $Rocks.get_children():
 		rock.queue_free()
 	level = 0
-	score = 0
-	$HUD.update_score(score)
+	Global.score = 0
+	$HUD.update_score(Global.score)
 	$Player.start()
+	$Player.set_position(Vector2(512,200))
 	$HUD.show_message("Приготовиться!")
 	yield($HUD/MessageTimer,"timeout")
-	playing = true
+	Global.playing = true
 	new_level()
 
 func new_level():
@@ -76,6 +86,10 @@ func new_level():
 	level += 1
 	if level > 1:
 		show_ads()
+	
+	
+	if Global.score>Global.record:
+		Global.data_save(Global.score)
 		
 	$HUD.show_message("Волна %s" % level)
 	
@@ -114,8 +128,8 @@ func spawn_rock(size,pos = null, vel = null):
 
 
 func _on_Rock_exploded(size,radius,pos,vel):
-	score += size * 10
-	$HUD.update_score(score)
+	Global.score += size * 10
+	$HUD.update_score(Global.score)
 	$ExplodeSound.play()
 	if size<=1:
 		return
@@ -152,4 +166,3 @@ func _off_Pause()->void:
 func _on_Pause_pressed()->void:
 	$HUD._on_Pause_pressed()
 	$HUD/ReturnButton.show()
-	$HUD/MarginContainer.grab_focus()

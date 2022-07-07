@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://assets/player_small.png" type="Texture" id=1]
 [ext_resource path="res://assets/kenvector_future_thin.ttf" type="DynamicFontData" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://assets/red_button02.png" type="Texture" id=19]
 [ext_resource path="res://assets/red_button01.png" type="Texture" id=20]
 [ext_resource path="res://assets/red_button00.png" type="Texture" id=21]
+[ext_resource path="res://assets/You_Lose/Window.png" type="Texture" id=22]
 
 [sub_resource type="DynamicFont" id=1]
 size = 64
@@ -28,6 +29,10 @@ font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 64
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 54
 font_data = ExtResource( 9 )
 
 [node name="HUD" type="CanvasLayer"]
@@ -193,9 +198,90 @@ valign = 1
 wait_time = 2.0
 one_shot = true
 
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -300.0
+margin_right = 512.0
+margin_bottom = 300.0
+mouse_filter = 2
+
+[node name="PopupGemeOwer" type="Popup" parent="MarginContainer2"]
+visible = true
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2/PopupGemeOwer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -212.5
+margin_top = -244.0
+margin_right = 212.5
+margin_bottom = 244.0
+texture = ExtResource( 22 )
+expand = true
+
+[node name="LabelGameOwer" type="Label" parent="MarginContainer2/PopupGemeOwer"]
+pause_mode = 1
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -512.0
+margin_top = 48.0
+margin_right = 512.0
+margin_bottom = 600.0
+custom_fonts/font = SubResource( 2 )
+text = "Конец игры!"
+align = 1
+
+[node name="LabelScore" type="Label" parent="MarginContainer2/PopupGemeOwer"]
+pause_mode = 1
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -200.0
+margin_top = 181.0
+margin_right = 204.0
+margin_bottom = 257.0
+custom_fonts/font = SubResource( 3 )
+text = "Очки:"
+align = 2
+valign = 1
+
+[node name="LabelRecord" type="Label" parent="MarginContainer2/PopupGemeOwer"]
+pause_mode = 1
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -200.0
+margin_top = 281.0
+margin_right = 204.0
+margin_bottom = 357.0
+custom_fonts/font = SubResource( 3 )
+text = "Рекорд:"
+align = 2
+
+[node name="ReturnGameOwerButton" type="TextureButton" parent="MarginContainer2/PopupGemeOwer"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -124.5
+margin_top = 127.0
+margin_right = 124.5
+margin_bottom = 191.794
+texture_normal = ExtResource( 20 )
+texture_pressed = ExtResource( 21 )
+texture_hover = ExtResource( 19 )
+expand = true
+
 [connection signal="toggled" from="MarginContainer/HBoxContainer/Sound" to="." method="_on_Sound_toggled"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/LiderBoard" to="." method="_on_LiderBoard_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Pause" to="." method="_on_Pause_pressed"]
 [connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="ReturnButton" to="." method="_on_ReturnButton_pressed"]
 [connection signal="timeout" from="MessageTimer" to="." method="_on_MessageTimer_timeout"]
+[connection signal="pressed" from="MarginContainer2/PopupGemeOwer/ReturnGameOwerButton" to="." method="_on_ReturnGameOwerButton_pressed"]

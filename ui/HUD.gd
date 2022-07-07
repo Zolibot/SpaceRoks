@@ -14,6 +14,8 @@ var yellow_bar = preload("res://assets/barHorizontal_yellow_mid 200.png")
 
 var pause = false
 
+#func _ready():
+#	$MarginContainer2/PopupGemeOwer.popup()
 
 func update_shield(value):
 	value *= 100
@@ -43,9 +45,13 @@ func update_lives(value):
 		lives_counter[item].visible = value > item
 
 func game_over():
-	show_message("Конец игры!")
-	yield($MessageTimer,"timeout")
+#	show_message("Конец игры!")
+#	yield($MessageTimer,"timeout")
+	_on_PopupGemeOwer_about_to_show()
+	yield(get_tree().create_timer(1),"timeout")
 	$StartButton.show()
+	
+	
 
 func _on_StartButton_pressed():
 	$StartButton.hide()
@@ -67,6 +73,7 @@ func _on_Pause_pressed():
 
 func _on_Sound_toggled(button_pressed):
 	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), button_pressed)
+	Global.trriger_sound = button_pressed
 
 
 func _on_LiderBoard_pressed():
@@ -79,3 +86,32 @@ func _on_ReturnButton_pressed():
 	$MessagePause.text = ""
 	$MessagePause.hide()
 	$ReturnButton.hide()
+
+
+func _on_ReturnGameOwerButton_pressed():
+	$MarginContainer2/PopupGemeOwer.hide()
+	
+	
+	
+func _ready():
+	Global.connect("pull_data",self,"set_score",[])
+
+
+func _on_PopupGemeOwer_about_to_show():
+	Global.data_load()
+	$MarginContainer2/PopupGemeOwer.popup()
+	
+
+func set_score(args):
+	if $MarginContainer2/PopupGemeOwer.visible == true:
+		if Global.score < args:
+			$"MarginContainer2/PopupGemeOwer/LabelRecord".text = "Рекорд: " + str(args)
+			$"MarginContainer2/PopupGemeOwer/LabelScore".text = "Очки: " + str(Global.score)
+		else:
+			$"MarginContainer2/PopupGemeOwer/LabelRecord".text = "Рекорд: " + str(Global.score)
+			$"MarginContainer2/PopupGemeOwer/LabelScore".text = "Очки: " + str(Global.score)
+			Global.data_save(Global.score)
+	else:
+		show_message("Рекорд: "+ str(args))
+		Global.record = int(args)
+

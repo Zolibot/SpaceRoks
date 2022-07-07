@@ -8,6 +8,62 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": "InstantGamesBridgeAdvertisement",
+"language": "GDScript",
+"path": "res://addons/instant_games_bridge/advertisement.gd"
+}, {
+"base": "Reference",
+"class": "InstantGamesBridgeGame",
+"language": "GDScript",
+"path": "res://addons/instant_games_bridge/game.gd"
+}, {
+"base": "EditorExportPlugin",
+"class": "InstantGamesBridgeInjection",
+"language": "GDScript",
+"path": "res://addons/instant_games_bridge/injection.gd"
+}, {
+"base": "Reference",
+"class": "InstantGamesBridgePlatform",
+"language": "GDScript",
+"path": "res://addons/instant_games_bridge/platform.gd"
+}, {
+"base": "Reference",
+"class": "InstantGamesBridgeSettings",
+"language": "GDScript",
+"path": "res://addons/instant_games_bridge/settings.gd"
+}, {
+"base": "Reference",
+"class": "InstantGamesBridgeSocial",
+"language": "GDScript",
+"path": "res://addons/instant_games_bridge/social.gd"
+}, {
+"base": "Reference",
+"class": "InterstitialState",
+"language": "GDScript",
+"path": "res://addons/instant_games_bridge/interstitial_state.gd"
+}, {
+"base": "Reference",
+"class": "RewardState",
+"language": "GDScript",
+"path": "res://addons/instant_games_bridge/reward_state.gd"
+} ]
+_global_script_class_icons={
+"InstantGamesBridgeAdvertisement": "",
+"InstantGamesBridgeGame": "",
+"InstantGamesBridgeInjection": "",
+"InstantGamesBridgePlatform": "",
+"InstantGamesBridgeSettings": "",
+"InstantGamesBridgeSocial": "",
+"InterstitialState": "",
+"RewardState": ""
+}
+
+[addons]
+
+instant_games_bridge/initialize/initialize_automatically=true
+
 [application]
 
 config/name="Space Roks"
@@ -20,40 +76,17 @@ config/icon="res://assets/player_ship.png"
 [autoload]
 
 Global="*res://main/Global.gd"
-YandexSdk="*res://main/YandexSDK.gd"
-
-[debug]
-
-gdscript/warnings/enable=false
-gdscript/warnings/exclude_addons=false
-gdscript/warnings/unassigned_variable=false
-gdscript/warnings/unassigned_variable_op_assign=false
-gdscript/warnings/unused_variable=false
-gdscript/warnings/shadowed_variable=false
-gdscript/warnings/unused_argument=false
-gdscript/warnings/unreachable_code=false
-gdscript/warnings/standalone_expression=false
-gdscript/warnings/void_assignment=false
-gdscript/warnings/narrowing_conversion=false
-gdscript/warnings/function_may_yield=false
-gdscript/warnings/variable_conflicts_function=false
-gdscript/warnings/function_conflicts_variable=false
-gdscript/warnings/function_conflicts_constant=false
-gdscript/warnings/incompatible_ternary=false
-gdscript/warnings/unused_signal=false
-gdscript/warnings/return_value_discarded=false
-gdscript/warnings/property_used_as_function=false
-gdscript/warnings/constant_used_as_function=false
-gdscript/warnings/function_used_as_property=false
-gdscript/warnings/integer_division=false
-gdscript/warnings/deprecated_keyword=false
-gdscript/warnings/standalone_ternary=false
+InstantGamesBridge="*res://addons/instant_games_bridge/singleton.gd"
 
 [display]
 
-window/dpi/allow_hidpi=true
+window/vsync/vsync_via_compositor=true
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/instant_games_bridge/plugin.cfg" )
 
 [input]
 
@@ -97,12 +130,18 @@ pointing/emulate_touch_from_mouse=true
 
 [physics]
 
+2d/physics_engine="GodotPhysics"
 2d/default_gravity=0
 
 [rendering]
 
 quality/driver/driver_name="GLES2"
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=0
 2d/snapping/use_gpu_pixel_snap=true
+vram_compression/import_bptc=true
 vram_compression/import_etc=true
+vram_compression/import_pvrtc=true
+2d/opengl/batching_stream=2
 environment/default_environment="res://default_env.tres"
 quality/2d/use_pixel_snap=true
