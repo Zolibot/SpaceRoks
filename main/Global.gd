@@ -113,7 +113,7 @@ func data_load()->void:
 
 
 func _apply_data(args) -> void:
-	print("Data is: "+ str(args[0]))
+	#print("Data is: "+ str(args[0]))
 	if str(args[0]) == "Null":
 		data_save(0)
 	else:
@@ -151,6 +151,6 @@ func _rewarded_state_changed(state: String):
 
 
 func logger(text):
-	print(text)
+	#print(text)
 	pass
 	#$logger.add_text(str(text) + '\n')

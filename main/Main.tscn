@@ -70,6 +70,7 @@ stream = ExtResource( 8 )
 stream = ExtResource( 9 )
 
 [node name="Left" type="TouchScreenButton" parent="."]
+modulate = Color( 1, 1, 1, 0.607843 )
 position = Vector2( 13, 480 )
 scale = Vector2( 1.5, 1.5 )
 z_index = 100
@@ -78,6 +79,7 @@ action = "rotate_left"
 visibility_mode = 1
 
 [node name="Right" type="TouchScreenButton" parent="."]
+modulate = Color( 1, 1, 1, 0.607843 )
 position = Vector2( 133, 477 )
 scale = Vector2( 1.5, 1.5 )
 z_index = 100
@@ -86,6 +88,7 @@ action = "rotate_right"
 visibility_mode = 1
 
 [node name="Thrust" type="TouchScreenButton" parent="."]
+modulate = Color( 1, 1, 1, 0.607843 )
 position = Vector2( 896, 480 )
 scale = Vector2( 1.5, 1.5 )
 z_index = 100
@@ -94,6 +97,7 @@ action = "thrust"
 visibility_mode = 1
 
 [node name="Shoot" type="TouchScreenButton" parent="."]
+modulate = Color( 1, 1, 1, 0.607843 )
 position = Vector2( 760, 480 )
 scale = Vector2( 1.5, 1.5 )
 z_index = 100

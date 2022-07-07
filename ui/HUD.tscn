@@ -40,6 +40,7 @@ pause_mode = 2
 script = ExtResource( 5 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+self_modulate = Color( 1, 1, 1, 0.607843 )
 anchor_right = 1.0
 focus_mode = 2
 custom_constants/margin_right = 20
@@ -54,6 +55,7 @@ margin_right = 1004.0
 margin_bottom = 92.0
 
 [node name="Sound" type="TextureButton" parent="MarginContainer/HBoxContainer"]
+pause_mode = 2
 modulate = Color( 1, 1, 1, 0.607843 )
 margin_right = 86.0
 margin_bottom = 72.0
@@ -75,12 +77,14 @@ size_flags_horizontal = 3
 custom_fonts/font = SubResource( 1 )
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+modulate = Color( 1, 1, 1, 0.607843 )
 margin_left = 383.0
 margin_right = 413.0
 margin_bottom = 72.0
 texture = ExtResource( 7 )
 
 [node name="ShieldBar" type="TextureProgress" parent="MarginContainer/HBoxContainer"]
+modulate = Color( 1, 1, 1, 0.607843 )
 margin_left = 417.0
 margin_right = 781.0
 margin_bottom = 72.0
@@ -90,6 +94,7 @@ texture_over = ExtResource( 8 )
 texture_progress = ExtResource( 6 )
 
 [node name="LivesCounter" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+modulate = Color( 1, 1, 1, 0.607843 )
 margin_left = 785.0
 margin_right = 907.0
 margin_bottom = 72.0
@@ -210,7 +215,6 @@ margin_bottom = 300.0
 mouse_filter = 2
 
 [node name="PopupGemeOwer" type="Popup" parent="MarginContainer2"]
-visible = true
 margin_right = 1024.0
 margin_bottom = 600.0
 
