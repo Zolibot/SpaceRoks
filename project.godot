@@ -68,10 +68,10 @@ instant_games_bridge/initialize/initialize_automatically=true
 
 config/name="Space Roks"
 run/main_scene="res://main/Main.tscn"
-boot_splash/image="res://assets/player_ship.png"
+boot_splash/image="res://icon.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
-config/icon="res://assets/player_ship.png"
+config/icon="res://icon.png"
 
 [autoload]
 

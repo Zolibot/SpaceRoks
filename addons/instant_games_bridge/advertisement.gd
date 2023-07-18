@@ -12,39 +12,39 @@ var _printerr_cb = JavaScript.create_callback(self, "printerr")
 
 
 func _init(interface: JavaScriptObject) -> void:
-	_interface = interface
-	
-	_interface.on('interstitial_state_changed', _interstitial_state_changed_cb)
-	_interface.on('rewarded_state_changed', _rewarded_state_changed_cb)
+    _interface = interface
+    
+    _interface.on('interstitial_state_changed', _interstitial_state_changed_cb)
+    _interface.on('rewarded_state_changed', _rewarded_state_changed_cb)
 
 
 func _interstitial_state_changed(args) -> void:
-	emit_signal("interstitial_state_changed", str(args[0]))
+    emit_signal("interstitial_state_changed", str(args[0]))
 
 
 func _rewarded_state_changed(args) -> void:
-	emit_signal("rewarded_state_changed", str(args[0]))
+    emit_signal("rewarded_state_changed", str(args[0]))
 
 
 func set_minimum_delay_between_interstitial(delay: int) -> void:
-	if _interface == null: return
-	
-	_interface.setMinimumDelayBetweenInterstitial(delay)
+    if _interface == null: return
+    
+    _interface.setMinimumDelayBetweenInterstitial(delay)
 
 
 func show_interstitial(ignore_delay = false, callback: JavaScriptObject = null, catch_callback: JavaScriptObject = null) -> void:
-	if _interface == null: return
-	
-	var options = JavaScript.create_object("Object")
-	options.ignoreDelay = ignore_delay
-	_interface.showInterstitial(options) \
-		.then(callback) \
-		.catch(catch_callback if catch_callback != null else _printerr_cb)
+    if _interface == null: return
+    
+    var options = JavaScript.create_object("Object")
+    options.ignoreDelay = ignore_delay
+    _interface.showInterstitial(options) \
+        .then(callback) \
+        .catch(catch_callback if catch_callback != null else _printerr_cb)
 
 
 func show_rewarded(callback: JavaScriptObject = null, catch_callback: JavaScriptObject = null) -> void:
-	if _interface == null: return
-	
-	_interface.showRewarded() \
-		.then(callback) \
-		.catch(catch_callback if catch_callback != null else _printerr_cb)
+    if _interface == null: return
+    
+    _interface.showRewarded() \
+        .then(callback) \
+        .catch(catch_callback if catch_callback != null else _printerr_cb)
